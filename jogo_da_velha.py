@@ -5,8 +5,9 @@ import pygame
 pygame.init()
 screen = pygame.display.set_mode((500, 500))
 clock = pygame.time.Clock()
-running = True
+running = True 
 pygame.display.set_caption("Jogo Da Velha")
+
 cor_fundo = 1 
 #cor_fundo = 2
 
