@@ -6,7 +6,7 @@ pygame.init()# inicialização do pygame
 pygame.font.init()#inicialização do pacote de fontes no pygame
 
 
-screen = pygame.display.set_mode((500, 500)) # definição do tamanho da tela do jogo 
+screen = pygame.display.set_mode((600, 600)) # definição do tamanho da tela do jogo 
 clock = pygame.time.Clock() #Bliblioteca de tempo
 running = True 
 pygame.display.set_caption("Jogo Da Velha")
@@ -14,9 +14,9 @@ pygame.display.set_caption("Jogo Da Velha")
 
 cor_fundo = 1 
 #cor_fundo = 2
-fonte_quadrinhos = pygame.font.SysFont('Comic Sans Ms', 30)#importar fontes
+fonte_quadrinhos = pygame.font.SysFont('Comic Sans Ms', 60)#importar fontes
 personagem_x = fonte_quadrinhos.render('X', True, 'red')
-personagem_o = fonte_quadrinhos.render('0', True, 'red')
+personagem_y = fonte_quadrinhos.render('O', True, 'red')
 while running:
     # Controle de eventos 
     # 
@@ -29,21 +29,23 @@ while running:
             if (cor_fundo > 3):
                 cor_fundo = 1
 
-    # fill the screen with a color to wipe away anything from last frame
-    #screen.fill("blue")
-   
-
-    # RENDER YOUR GAME HERE
-    if cor_fundo == 1:
-        screen.fill('black')
-        screen.blit(personagem_x,(250,250))
+  #Desenha tabuleiro                  
+  #                                   Origem        Destino
+  #                                   ( x ,  y)  ( x , y )  
+    pygame.draw.line(screen, 'white', (200, 0), (200, 600), 10)
+    pygame.draw.line(screen, 'white', (400, 0), (400, 600), 10)
+    pygame.draw.line(screen, 'white', (0, 200), (600, 200), 10)
+    pygame.draw.line(screen, 'white', (0, 400), (600, 400), 10)
+    
+    if cor_fundo == 1:           #  x | y
+         screen.blit(personagem_x,(80, 60))
+         screen.blit(personagem_x,(460, 260))
+         screen.blit(personagem_x,(280, 60))
     elif cor_fundo == 2:
-        screen.fill('black')
-        screen.blit(personagem_o,(250,250))
+         screen.blit(personagem_y,(460, 460))
+         screen.blit(personagem_y,(60, 260))
+         screen.blit(personagem_y,(460, 60))
         
-    else:
-        screen.fill('purple')  
-    # flip() the display to put your work on screen
     pygame.display.flip()
 
     clock.tick(60)  # limita FPS para 60
