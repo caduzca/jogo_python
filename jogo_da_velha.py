@@ -23,7 +23,6 @@ tabuleiro_desenhado = False
 cordenada_x = 0
 cordenada_y = 0
 
-
 q1 = ''
 q2 = ''
 q3 = ''
@@ -81,7 +80,36 @@ def faz_jogada():
         status = False
     
     return status        
+
+def check_vencedor():
+    status = False
+    if q1 == q2 == q3 != '':
+        pygame.draw.line(screen, 'white' , (50, 100), (550, 100), 10)
+        status = True
+    elif q4 == q5 == q6 != '':
+        pygame.draw.line(screen, 'white' , (50, 300), (550, 300), 10)
+        status = True
+    elif q7 == q8 == q9 != '':
+        pygame.draw.line(screen, 'white' , (50, 500), (550, 500), 10)
+        status = True
+    elif q1 == q4 == q7 != '':
+        pygame.draw.line(screen, 'white' , (100, 50), (100, 550), 10)
+        status = True
+    elif q2 == q5 == q8 != '':
+        pygame.draw.line(screen, 'white' , (300, 50), (300, 550), 10)
+        status = True                
+    elif q3 == q6 == q9 != '':
+        pygame.draw.line(screen, 'white' , (500, 50), (500, 550), 10)
+        status = True
+    elif q1 == q5 == q9 != '':
+        pygame.draw.line(screen, 'white' , (60, 50), (550, 550), 10)
+        status = True
+    elif q3 == q5 == q7 != '':
+        pygame.draw.line(screen, 'white' , (540, 40), (50, 550), 10)
+        status = True
+    return status
     
+
 while running:
     # Controle de eventos 
     # 
@@ -89,28 +117,33 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            print('clicou')
             pos = pygame.mouse.get_pos()
-            print('eixo x:', pos[0])
-            print('eixo y:', pos[1])
             cordenada_x = pos [0]
             cordenada_y = pos [1]
+            
             if(rodadas >= 9):
                 screen.fill('black')
                 rodadas = 0
                 cordenada_x = 0
                 cordenada_y = 0
+                jogador_atual = personagem_x
                 tabuleiro_desenhado = False
+                break
             if(faz_jogada()):
                 rodadas = rodadas + 1
                 if jogador_atual == personagem_x:
                     jogador_atual = personagem_o
                 else:
-                    jogador_atual = personagem_x   
+                    jogador_atual = personagem_x
+                if (check_vencedor()):
+                    rodadas = 9    
+
+                
+                     
 
     if tabuleiro_desenhado == False:
 
-        desenha_tabuleiro(20, 'blue')
+        desenha_tabuleiro(20, 'gray')
         q1 = ''
         q2 = ''
         q3 = ''
